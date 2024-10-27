@@ -11,11 +11,10 @@ int main(int argc, char* argv[]) {
       return 1;
     }
     
-    int fd = open(argv[1], O_RDONLY, S_IRUSR) {
-      if(fd == -1) {
-        fprintf(stderr, "Failed to open %s\n", argv[1]);
-        return 1;
-      }
+    int fd = open(argv[1], O_RDONLY, S_IRUSR);
+    if(fd == -1) {
+      fprintf(stderr, "Failed to open %s\n", argv[1]);
+      return 1;
     }
 
     char** newargv = (char**)malloc(sizeof(char*) * (argc - 2)); // exclude inp, output
