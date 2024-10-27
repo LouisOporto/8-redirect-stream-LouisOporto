@@ -1,0 +1,8 @@
+BasedOnStyle: Google
+UseTab: Never
+Language: Cpp
+ColumnLimit: 80
+TabWidth: 4
+IndentWidth: 4
+AlignOperands: true
+ReflowComments: true
