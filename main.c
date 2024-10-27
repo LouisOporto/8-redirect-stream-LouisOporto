@@ -17,6 +17,12 @@ int main(int argc, char* argv[]) {
       return 1;
     }
 
+    int newfd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+    if(newfd == -1) {
+      fprintf(stderr, "Failed to open %s\n", argv[argc - 1]);
+      return 1;
+    }
+
     char** newargv = (char**)malloc(sizeof(char*) * (argc - 2)); // exclude inp, output
 
     for(int iter = 2; iter < argc; iter++) {
