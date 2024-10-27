@@ -2,14 +2,27 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-
+/* Usage: redir <inp> <cmd> <out>*/
+//
 int main(int argc, char* argv[]) {
-    char** newargv = (char**)malloc(sizeof(char*) * argc);
-
-    for(int iter = 1; iter < argc; iter++) {
-      newargv[iter - 1] = (char*)argv[iter];
+    if(argc < 4) {
+      fprintf(stderr, "Usage: %s <inp> <cmd> <out>\n", argv[0]);
+      return 1;
     }
-    newargv[argc - 1] = NULL;
+    
+    int fd = open(argv[1], O_RDONLY, S_IRUSR) {
+      if(fd == -1) {
+        fprintf(stderr, "Failed to open %s\n", argv[1]);
+        return 1;
+      }
+    }
+    
+    char** newargv = (char**)malloc(sizeof(char*) * (argc - 2)); // exclude inp, output
+
+    for(int iter = 2; iter < argc; iter++) {
+      newargv[iter - 2] = (char*)argv[iter];
+    }
+    newargv[argc - 2 - 1] = NULL;
 
     int child_pid = fork();
     if(child_pid == 0) {
