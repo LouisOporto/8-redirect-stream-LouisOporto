@@ -1,3 +1,4 @@
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -16,7 +17,7 @@ int main(int argc, char* argv[]) {
         return 1;
       }
     }
-    
+
     char** newargv = (char**)malloc(sizeof(char*) * (argc - 2)); // exclude inp, output
 
     for(int iter = 2; iter < argc; iter++) {
