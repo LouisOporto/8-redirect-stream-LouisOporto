@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
 #define PATH "/usr/bin/"
 
@@ -33,7 +34,7 @@ int main(int argc, char* argv[]) {
     close(fds[1]);
     int status;
     pid_t wpid = waitpid(pid, &status, 0);
-    return wpid == pid && WIFEEXITED(status) ? WEXITSTATUS(status) : -1;
+    return wpid == pid && WIFEXITED(status) ? WEXITSTATUS(status) : -1;
     // if(argc != 4) {
     //   fprintf(stderr, "Usage: %s <inp> <cmd> <out>\n", argv[0]);
     //   return 1;
