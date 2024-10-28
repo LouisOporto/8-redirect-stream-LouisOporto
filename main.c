@@ -6,7 +6,7 @@
 /* Usage: redir <inp> <cmd> <out>*/
 //
 int main(int argc, char* argv[]) {
-    if(argc < 4) {
+    if(argc != 4) {
       fprintf(stderr, "Usage: %s <inp> <cmd> <out>\n", argv[0]);
       return 1;
     }
