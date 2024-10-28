@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
       return 1;
     }
 
-    int outputFD = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, S_IWUSR);
+    int outputFD = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, S_IWUSR | S_IRUSR);
     if(outputFD == -1) {
       fprintf(stderr, "Failed to open %s\n", argv[argc - 1]);
       return 1;
