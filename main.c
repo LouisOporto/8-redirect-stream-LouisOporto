@@ -11,13 +11,13 @@ int main(int argc, char* argv[]) {
       return 1;
     }
     
-    int inputFD = open(argv[1], O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+    int inputFD = open(argv[1], O_RDONLY, S_IRUSR);
     if(inputFD == -1) {
       fprintf(stderr, "Failed to open %s\n", argv[1]);
       return 1;
     }
 
-    int outputFD = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+    int outputFD = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, S_IWUSR);
     if(outputFD == -1) {
       fprintf(stderr, "Failed to open %s\n", argv[argc - 1]);
       return 1;
