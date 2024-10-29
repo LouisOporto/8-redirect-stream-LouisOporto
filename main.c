@@ -41,10 +41,15 @@ int main(int argc, char* argv[]) {
 
     // Copy arguments
     char** newargv = (char**)malloc(sizeof(char*) * (argc - 2));
-    char cmd[100] = "/usr/bin/";
-    strcat(cmd, argv[2]);
+    char prefix[] = "/usr/bin/";
+    size_t cmdLength = strlen(prefix) + strlen(argv[2]) + 1;
+    char* cmdPath = (char*)malloc(cmdLength);
+    
+    snprintf(cmdPath, cmdLength, "%s%s", prefix, argv[2]);
+    printf("%s\n", cmdPath);
 
-    newargv[0] = cmd;
+
+    newargv[0] = cmdPath;
     for(int iter = 3; iter < argc - 1; iter++) {
       newargv[iter - 2] = (char*)argv[iter];
   
@@ -54,10 +59,15 @@ int main(int argc, char* argv[]) {
     // Fork and execute
     int child_pid = fork();
     if(child_pid == 0) {
-      dup2(inputFD, STDIN_FILENO);
-      close(inputFD);
-      dup2(outputFD, STDOUT_FILENO);
-      close(outputFD);
+      if(strcmp(argv[1], "-") != 0) {
+        printf("test");
+        dup2(inputFD, STDIN_FILENO);
+        close(inputFD);
+      }
+      if(strcmp(argv[3], "-") != 0) {
+        dup2(outputFD, STDOUT_FILENO);
+        close(outputFD);
+      }
 
       execve(newargv[0], newargv, NULL);
       printf("Error: execve failed\n");
