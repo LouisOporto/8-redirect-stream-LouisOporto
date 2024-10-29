@@ -5,14 +5,9 @@
 #include <sys/wait.h>
 #include <string.h>
 
-#define PATH "/usr/bin/"
-
 //
 /* Usage: redir <inp> <cmd> <out>*/
 //
-
-// CREATE a path file to the commands in /usr/bin/ function
-
 
 int main(int argc, char* argv[]) {
     if(argc < 4) {
@@ -44,17 +39,17 @@ int main(int argc, char* argv[]) {
       }
     }
 
-    // Need to read the input file and write each command as separated parameter
-    // to the newargv array
-    char** newargv = (char**)malloc(sizeof(char*) * (argc - 2)); // change to number of elements + cmd selected
+    // Copy arguments
+    char** newargv = (char**)malloc(sizeof(char*) * (argc - 2));
+    char cmd[100] = "/usr/bin/";
+    strcat(cmd, argv[2]);
 
-
-    // // REMOVE
-    for(int iter = 2; iter < argc - 1; iter++) {
+    newargv[0] = cmd;
+    for(int iter = 3; iter < argc - 1; iter++) {
       newargv[iter - 2] = (char*)argv[iter];
+  
     }
     newargv[argc - 3] = NULL;
-
 
     // Fork and execute
     int child_pid = fork();
